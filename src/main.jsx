@@ -10,6 +10,9 @@ import AddHabits from "./Pages/Habits/AddHabits.jsx";
 import MyHabits from "./Pages/Habits/MyHabits.jsx";
 import BrowsHabits from "./Pages/Habits/BrowsHabits.jsx";
 import Error from "./Components/Error/Error.jsx";
+import AuthProvider from "./Provider/AuthProvider.jsx";
+import Signup from "./Pages/Auth/Register.jsx";
+import Login from "./Pages/Auth/Login.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,17 +39,26 @@ const router = createBrowserRouter([
         path: "brows-public-habits",
         element: <BrowsHabits></BrowsHabits>,
       },
-      
+      {
+        path: "signup",
+        element: <Signup></Signup>
+      },
+      {
+        path: "login",
+        element: <Login></Login>
+      }
     ],
   },
   {
     path: "/*",
-    element: <Error></Error>
+    element: <Error></Error>,
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

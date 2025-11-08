@@ -22,7 +22,7 @@ const Banner = () => {
                     <a
                       href="#"
                       title=""
-                      class="inline-flex items-center px-6 py-5 text-base font-semibold text-black transition-all duration-200 bg-green-300 mt-9 hover:bg-green-400 focus:bg-green-400"
+                      class="inline-flex rounded-2xl items-center px-6 py-5 text-base font-semibold text-black transition-all duration-200 bg-green-300 mt-9 hover:bg-green-400 focus:bg-green-400"
                       role="button"
                     >
                       {" "}
