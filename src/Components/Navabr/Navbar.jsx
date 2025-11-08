@@ -20,26 +20,30 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/add-habit"
-          className={({ isActive }) =>
-            isActive ? "bg-green-300 font-semibold" : "hover:bg-green-300"
-          }
-        >
-          Add Habit
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/my-habits"
-          className={({ isActive }) =>
-            isActive ? "bg-green-300 font-semibold" : "hover:bg-green-300"
-          }
-        >
-          My Habits
-        </NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to="/add-habit"
+              className={({ isActive }) =>
+                isActive ? "bg-green-300 font-semibold" : "hover:bg-green-300"
+              }
+            >
+              Add Habit
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/my-habits"
+              className={({ isActive }) =>
+                isActive ? "bg-green-300 font-semibold" : "hover:bg-green-300"
+              }
+            >
+              My Habits
+            </NavLink>
+          </li>
+        </>
+      )}
       <li>
         <NavLink
           to="/browse-public-habits"

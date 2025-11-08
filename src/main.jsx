@@ -13,6 +13,7 @@ import Error from "./Components/Error/Error.jsx";
 import AuthProvider from "./Provider/AuthProvider.jsx";
 import Signup from "./Pages/Auth/Register.jsx";
 import Login from "./Pages/Auth/Login.jsx";
+import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,11 +30,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-habit",
-        element: <AddHabits></AddHabits>,
+        element: (
+          <PrivateRoute>
+            <AddHabits></AddHabits>
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-habits",
-        element: <MyHabits></MyHabits>,
+        element: (
+          <PrivateRoute>
+            <MyHabits></MyHabits>
+          </PrivateRoute>
+        ),
       },
       {
         path: "brows-public-habits",
@@ -41,12 +50,12 @@ const router = createBrowserRouter([
       },
       {
         path: "signup",
-        element: <Signup></Signup>
+        element: <Signup></Signup>,
       },
       {
         path: "login",
-        element: <Login></Login>
-      }
+        element: <Login></Login>,
+      },
     ],
   },
   {
