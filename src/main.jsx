@@ -14,6 +14,7 @@ import AuthProvider from "./Provider/AuthProvider.jsx";
 import Signup from "./Pages/Auth/Register.jsx";
 import Login from "./Pages/Auth/Login.jsx";
 import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
+import HabitDetails from "./Components/Habit/HabitDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
+        loader: () => fetch("http://localhost:3000/habits/limited"),
         Component: Home,
       },
       {
@@ -37,7 +39,8 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-habits",
+        path: "/my-habits",
+
         element: (
           <PrivateRoute>
             <MyHabits></MyHabits>
@@ -45,15 +48,27 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "brows-public-habits",
+        path: "/brows-public-habits",
+        loader: () => fetch("http://localhost:3000/habits"),
         element: <BrowsHabits></BrowsHabits>,
       },
       {
-        path: "signup",
+        path: "/habit-details/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/habits/${params.id}`),
+
+        element: (
+          <PrivateRoute>
+            <HabitDetails></HabitDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/signup",
         element: <Signup></Signup>,
       },
       {
-        path: "login",
+        path: "/login",
         element: <Login></Login>,
       },
     ],

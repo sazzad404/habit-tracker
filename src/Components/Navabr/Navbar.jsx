@@ -46,7 +46,7 @@ const Navbar = () => {
       )}
       <li>
         <NavLink
-          to="/browse-public-habits"
+          to="/brows-public-habits"
           className={({ isActive }) =>
             isActive ? "bg-green-300 font-semibold" : "hover:bg-green-300"
           }
@@ -87,11 +87,19 @@ const Navbar = () => {
 
           {/* Logo */}
           <Link to={"/"}>
-            <img
-              className="object-contain w-32 h-10"
-              src="https://cdn.rareblocks.xyz/collection/clarity/images/brands/1/logo-martino.svg"
-              alt="Logo"
-            />
+            <a
+              href="#"
+              className="flex items-center rounded outline-none focus:ring-1 focus:ring-indigo-600 focus:ring-offset-2"
+            >
+              <img
+                className="w-auto h-8"
+                src="https://cdn-icons-png.flaticon.com/512/854/854878.png"
+                alt="HabitTracker Logo"
+              />
+              <span className="ml-2 text-xl font-bold text-indigo-700">
+                HabitTracker
+              </span>
+            </a>
           </Link>
         </div>
 

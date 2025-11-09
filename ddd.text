@@ -1,0 +1,142 @@
+[
+  {
+    "title": "Morning Jog",
+    "category": "Fitness",
+    "description": "Start your day with a refreshing morning jog of at least 3 km to boost your energy levels, improve cardiovascular health, and maintain overall fitness. Consistency is key to forming a lasting habit.",
+    "frequency": "Daily",
+    "streak": 5,
+    "createdAt": "2025-11-01T07:00:00Z",
+    "createdBy": "alice@example.com",
+    "image": "https://i.ibb.co/TD6C2LG5/morning-jog.jpg"
+  },
+  {
+    "title": "Read Books",
+    "category": "Personal Development",
+    "description": "Dedicate at least 20 minutes daily to reading books that enrich your knowledge, improve vocabulary, and stimulate creativity. Reading regularly helps in personal growth and mental well-being.",
+    "frequency": "Daily",
+    "streak": 12,
+    "createdAt": "2025-11-03T10:30:00Z",
+    "createdBy": "bob@example.com",
+    "image": "https://i.ibb.co/0RcJV7Jv/read-books.jpg"
+  },
+  {
+    "title": "Meditation",
+    "category": "Mindfulness",
+    "description": "Spend 15-20 minutes meditating every day to reduce stress, improve focus, and cultivate a sense of inner peace. Mindfulness practices enhance mental clarity and emotional stability.",
+    "frequency": "Daily",
+    "streak": 7,
+    "createdAt": "2025-11-05T06:45:00Z",
+    "createdBy": "charlie@example.com",
+    "image": "https://i.ibb.co/rRJryggs/medication.jpg"
+  },
+  {
+    "title": "Learn Coding",
+    "category": "Education",
+    "description": "Invest at least 1 hour daily in learning programming languages, frameworks, or algorithms to enhance your coding skills. This consistent effort will lead to mastery over time.",
+    "frequency": "Daily",
+    "streak": 3,
+    "createdAt": "2025-11-07T09:00:00Z",
+    "createdBy": "david@example.com",
+    "image": "https://i.ibb.co/cXt1dvcz/learn-coding.jpg"
+  },
+  {
+    "title": "Drink Water",
+    "category": "Health",
+    "description": "Ensure you drink at least 8 glasses of water daily to stay hydrated, maintain healthy skin, and support overall bodily functions. Hydration is crucial for energy and well-being.",
+    "frequency": "Daily",
+    "streak": 15,
+    "createdAt": "2025-11-02T08:00:00Z",
+    "createdBy": "emma@example.com",
+    "image": "https://i.ibb.co/m5kVB6Kn/drink-water.jpg"
+  },
+  {
+    "title": "Sleep Early",
+    "category": "Lifestyle",
+    "description": "Aim to go to bed by 10 PM each night to improve sleep quality, boost productivity, and support overall health. Proper sleep helps in mental and physical recovery.",
+    "frequency": "Daily",
+    "streak": 10,
+    "createdAt": "2025-11-04T22:00:00Z",
+    "createdBy": "frank@example.com",
+    "image": "https://i.ibb.co/k6c2M7Bf/sleeping-on-bed-early-morning.jpg"
+  },
+  {
+    "title": "Healthy Eating",
+    "category": "Nutrition",
+    "description": "Focus on consuming a balanced diet with fruits, vegetables, and proteins every day. Healthy eating habits lead to better energy, improved immunity, and long-term wellness.",
+    "frequency": "Daily",
+    "streak": 8,
+    "createdAt": "2025-11-06T12:00:00Z",
+    "createdBy": "grace@example.com",
+    "image": "https://i.ibb.co/ns4J3r1y/healty-eat.jpg"
+  },
+  {
+    "title": "Yoga Practice",
+    "category": "Fitness",
+    "description": "Engage in at least 30 minutes of yoga daily to enhance flexibility, strength, and mental calmness. Yoga combines physical postures with breathing exercises for holistic wellness.",
+    "frequency": "Daily",
+    "streak": 6,
+    "createdAt": "2025-11-01T07:30:00Z",
+    "createdBy": "harry@example.com",
+    "image": "https://i.ibb.co/7m6fSgS/yoga.jpg"
+  },
+  {
+    "title": "Gratitude Journal",
+    "category": "Mindfulness",
+    "description": "Write down 3 things you are grateful for each day. Keeping a gratitude journal helps improve mental health, reduces stress, and cultivates a positive outlook on life.",
+    "frequency": "Daily",
+    "streak": 4,
+    "createdAt": "2025-11-03T20:00:00Z",
+    "createdBy": "isabel@example.com",
+    "image": "https://i.ibb.co/Fbnh2Ymz/images.jpg"
+  },
+  {
+    "title": "Practice Guitar",
+    "category": "Hobby",
+    "description": "Dedicate 30 minutes every day to practice guitar. Regular practice enhances musical skills, hand coordination, and provides a relaxing outlet for creativity.",
+    "frequency": "Daily",
+    "streak": 2,
+    "createdAt": "2025-11-05T18:00:00Z",
+    "createdBy": "jack@example.com",
+    "image": "https://i.ibb.co/3mxPFKLL/istockphoto-596345112-612x612.jpg"
+  },
+  {
+    "title": "Walk the Dog",
+    "category": "Lifestyle",
+    "description": "Take your dog for a 20-minute walk daily. This routine improves your pet's health, strengthens your bond, and gives you light daily exercise.",
+    "frequency": "Daily",
+    "streak": 9,
+    "createdAt": "2025-11-06T07:00:00Z",
+    "createdBy": "karen@example.com",
+    "image": "https://i.ibb.co/39b4SB3z/istockphoto-1442143816-612x612.jpg"
+  },
+  {
+    "title": "Write Blog",
+    "category": "Education",
+    "description": "Spend 1 hour daily writing blog posts or articles. This habit boosts creativity, improves writing skills, and helps establish an online presence.",
+    "frequency": "Daily",
+    "streak": 3,
+    "createdAt": "2025-11-07T14:00:00Z",
+    "createdBy": "leo@example.com",
+    "image": "https://i.ibb.co/5gyyXMq1/download.jpg"
+  },
+  {
+    "title": "Language Learning",
+    "category": "Education",
+    "description": "Dedicate at least 30 minutes daily to learning a new language using apps, books, or online courses. Regular practice improves fluency and cognitive abilities.",
+    "frequency": "Daily",
+    "streak": 5,
+    "createdAt": "2025-11-02T15:00:00Z",
+    "createdBy": "mia@example.com",
+    "image": "https://i.ibb.co/bMkmK3D8/premium-photo-1663047291494-b29cb4f0df9d.jpg"
+  },
+  {
+    "title": "Digital Detox",
+    "category": "Lifestyle",
+    "description": "Spend 1 hour every evening away from screens to relax, read, or meditate. A digital detox helps reduce eye strain, stress, and improves sleep quality.",
+    "frequency": "Daily",
+    "streak": 7,
+    "createdAt": "2025-11-04T21:00:00Z",
+    "createdBy": "nathan@example.com",
+    "image": "https://i.ibb.co/QFFGx4pq/istockphoto-2149128960-612x612.jpg"
+  }
+]
