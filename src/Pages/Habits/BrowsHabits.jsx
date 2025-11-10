@@ -14,7 +14,7 @@ const BrowsHabits = () => {
         <div className="flex items-center gap-4 mb-6">
           <div className="flex-1 h-px bg-primary"></div>
           <h1 className="text-lg font-semibold tracking-wide text-gray-800">
-            BROWS HABITS
+           SOCIAL HABITS
           </h1>
 
           <div className="flex-1 h-px bg-primary"></div>

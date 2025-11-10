@@ -3,9 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaEdit, FaTrashAlt, FaCheckCircle, FaTimes } from "react-icons/fa";
 import Swal from "sweetalert2";
 
-const HabitTable = ({ singleHabit }) => {
-  const { title, category, image, createdAt, currentStreak, _id } =
-    singleHabit || {};
+const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
+  const { title, category, image, createdAt, currentStreak, _id } = singleHabit || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updatedData, setUpdatedData] = useState({
     title: title,
@@ -14,19 +13,24 @@ const HabitTable = ({ singleHabit }) => {
     currentStreak: currentStreak,
   });
 
+
+
   const handleUpdate = async (e) => {
     e.preventDefault();
-
     try {
-      const data = await fetch(`http://localhost:3000/habits/${_id}`, {
+      const res = await fetch(`http://localhost:3000/habits/${_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedData),
       });
-      if (data.ok) {
-        const result = await data.json();
+      if (res.ok) {
+        const result = await res.json();
         console.log("Updated", result);
-        Object.assign(singleHabit, updatedData);
+        // UI update by replacing habit in parent state
+        const newList = allHabits.map((habit) =>
+          habit._id === _id ? { ...habit, ...updatedData } : habit
+        );
+        setHabit(newList);
         setIsModalOpen(false);
         Swal.fire({
           position: "top-end",
@@ -35,15 +39,13 @@ const HabitTable = ({ singleHabit }) => {
           showConfirmButton: false,
           timer: 1500,
         });
-      } else {
-        console.log("failed to update");
       }
     } catch (err) {
-      console.log("errorrr", err);
+      console.log(err);
     }
   };
 
-  const handleDlt = () => {
+  const handleDlt = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -54,26 +56,23 @@ const HabitTable = ({ singleHabit }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/habits/${_id}`, {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        })
+        fetch(`http://localhost:3000/habits/${id}`, { method: "DELETE" })
           .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            setUpdatedData(data)
+          .then(() => {
+            const newList = allHabits.filter((habit) => habit._id !== id);
+            setHabit(newList); // ✅ UI auto-update
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Your habit has been deleted.",
               icon: "success",
             });
-          })
-          .catch((err) => {
-            console.log(err);
           });
       }
     });
   };
+
+
+  
 
   return (
     <div className="overflow-x-auto mt-8 relative">
@@ -119,7 +118,7 @@ const HabitTable = ({ singleHabit }) => {
                 <FaEdit /> Update
               </button>
               <button
-                onClick={handleDlt}
+                onClick={() => handleDlt(_id)}
                 className="flex items-center gap-2 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition"
               >
                 <FaTrashAlt /> Delete
@@ -132,7 +131,7 @@ const HabitTable = ({ singleHabit }) => {
         </tbody>
       </motion.table>
 
-      {/* Modal Section */}
+      {/* Modal */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
@@ -148,82 +147,53 @@ const HabitTable = ({ singleHabit }) => {
               transition={{ type: "spring", stiffness: 120, damping: 15 }}
               className="bg-white rounded-2xl shadow-2xl p-6 w-[90%] max-w-md relative"
             >
-              {/* Close button */}
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="absolute top-3 right-3 text-gray-400 hover:text-gray-700 transition"
               >
                 <FaTimes size={18} />
               </button>
-
               <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center">
                 Update Habit
               </h2>
 
-              {/* form */}
               <form onSubmit={handleUpdate} className="flex flex-col gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Title
-                  </label>
+                  <label className="block text-sm font-medium text-gray-600">Title</label>
                   <input
                     type="text"
                     value={updatedData.title}
-                    onChange={(e) =>
-                      setUpdatedData({ ...updatedData, title: e.target.value })
-                    }
+                    onChange={(e) => setUpdatedData({ ...updatedData, title: e.target.value })}
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Category
-                  </label>
+                  <label className="block text-sm font-medium text-gray-600">Category</label>
                   <input
                     type="text"
                     value={updatedData.category}
-                    onChange={(e) =>
-                      setUpdatedData({
-                        ...updatedData,
-                        category: e.target.value,
-                      })
-                    }
+                    onChange={(e) => setUpdatedData({ ...updatedData, category: e.target.value })}
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Image URL
-                  </label>
+                  <label className="block text-sm font-medium text-gray-600">Image URL</label>
                   <input
                     type="text"
                     value={updatedData.image}
-                    onChange={(e) =>
-                      setUpdatedData({ ...updatedData, image: e.target.value })
-                    }
+                    onChange={(e) => setUpdatedData({ ...updatedData, image: e.target.value })}
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-600">
-                    Current Streak
-                  </label>
+                  <label className="block text-sm font-medium text-gray-600">Current Streak</label>
                   <input
                     type="number"
                     value={updatedData.currentStreak}
-                    onChange={(e) =>
-                      setUpdatedData({
-                        ...updatedData,
-                        currentStreak: e.target.value,
-                      })
-                    }
+                    onChange={(e) => setUpdatedData({ ...updatedData, currentStreak: e.target.value })}
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                   />
                 </div>
-
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
