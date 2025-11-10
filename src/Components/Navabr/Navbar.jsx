@@ -8,6 +8,7 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
+
   const links = (
     <>
       <li>

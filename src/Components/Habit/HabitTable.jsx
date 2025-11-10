@@ -1,11 +1,79 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaEdit, FaTrashAlt, FaCheckCircle, FaTimes } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const HabitTable = ({ singleHabit }) => {
-  const { title, category, image, createdAt, currentStreak } =
+  const { title, category, image, createdAt, currentStreak, _id } =
     singleHabit || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [updatedData, setUpdatedData] = useState({
+    title: title,
+    category: category,
+    image: image,
+    currentStreak: currentStreak,
+  });
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = await fetch(`http://localhost:3000/habits/${_id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedData),
+      });
+      if (data.ok) {
+        const result = await data.json();
+        console.log("Updated", result);
+        Object.assign(singleHabit, updatedData);
+        setIsModalOpen(false);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Update Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        console.log("failed to update");
+      }
+    } catch (err) {
+      console.log("errorrr", err);
+    }
+  };
+
+  const handleDlt = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/habits/${_id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            setUpdatedData(data)
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
 
   return (
     <div className="overflow-x-auto mt-8 relative">
@@ -50,7 +118,10 @@ const HabitTable = ({ singleHabit }) => {
               >
                 <FaEdit /> Update
               </button>
-              <button className="flex items-center gap-2 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition">
+              <button
+                onClick={handleDlt}
+                className="flex items-center gap-2 bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition"
+              >
                 <FaTrashAlt /> Delete
               </button>
               <button className="flex items-center gap-2 bg-emerald-500 text-white px-3 py-1 rounded-lg hover:bg-emerald-600 transition">
@@ -89,14 +160,18 @@ const HabitTable = ({ singleHabit }) => {
                 Update Habit
               </h2>
 
-              <form className="flex flex-col gap-4">
+              {/* form */}
+              <form onSubmit={handleUpdate} className="flex flex-col gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-600">
                     Title
                   </label>
                   <input
                     type="text"
-                    defaultValue={title}
+                    value={updatedData.title}
+                    onChange={(e) =>
+                      setUpdatedData({ ...updatedData, title: e.target.value })
+                    }
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                   />
                 </div>
@@ -107,7 +182,13 @@ const HabitTable = ({ singleHabit }) => {
                   </label>
                   <input
                     type="text"
-                    defaultValue={category}
+                    value={updatedData.category}
+                    onChange={(e) =>
+                      setUpdatedData({
+                        ...updatedData,
+                        category: e.target.value,
+                      })
+                    }
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                   />
                 </div>
@@ -118,7 +199,10 @@ const HabitTable = ({ singleHabit }) => {
                   </label>
                   <input
                     type="text"
-                    defaultValue={image}
+                    value={updatedData.image}
+                    onChange={(e) =>
+                      setUpdatedData({ ...updatedData, image: e.target.value })
+                    }
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                   />
                 </div>
@@ -129,7 +213,13 @@ const HabitTable = ({ singleHabit }) => {
                   </label>
                   <input
                     type="number"
-                    defaultValue={currentStreak}
+                    value={updatedData.currentStreak}
+                    onChange={(e) =>
+                      setUpdatedData({
+                        ...updatedData,
+                        currentStreak: e.target.value,
+                      })
+                    }
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                   />
                 </div>

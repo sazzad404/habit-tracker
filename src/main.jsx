@@ -40,6 +40,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-habits",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/habits/${params.id}`),
 
         element: (
           <PrivateRoute>
