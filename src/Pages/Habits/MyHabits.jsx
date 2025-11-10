@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../Provider/AuthProvider";
 import HabitTable from "../../Components/Habit/HabitTable";
+import HabitAnalytics from "../../Components/Analysis/HabitAnlytics";
+
 
 const MyHabits = () => {
   const { user } = useContext(AuthContext);
@@ -16,9 +18,8 @@ const MyHabits = () => {
   }, [user?.email]);
 
   return (
-    <section className="px-4 py-10 md:py-16 bg-[#f9fefb] min-h-[70vh]">
+    <section className="px-4 py-10 md:py-16 bg-[#f9fefb] min-h-screen">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -32,7 +33,6 @@ const MyHabits = () => {
           <div className="flex-1 h-px bg-green-300 hidden md:block"></div>
         </motion.div>
 
-        {/* Habit List */}
         <div className="space-y-6">
           {habits.length > 0 ? (
             habits.map((habit) => (
@@ -61,6 +61,7 @@ const MyHabits = () => {
           )}
         </div>
       </div>
+              {habits.length > 0 && <HabitAnalytics habits={habits} />}
     </section>
   );
 };

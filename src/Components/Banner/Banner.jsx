@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const habitImages = [
-  "https://picsum.photos/seed/1/400/600",
-  "https://picsum.photos/seed/2/400/600",
-  "https://picsum.photos/seed/3/400/600",
-  "https://picsum.photos/seed/4/400/600",
+  "https://i.ibb.co/TD6C2LG5/morning-jog.jpg",
+  "https://i.ibb.co/0RcJV7Jv/read-books.jpg",
+  "https://i.ibb.co/rRJryggs/medication.jpg",
+  "https://i.ibb.co/m5kVB6Kn/drink-water.jpg",
 ];
 
 const Banner = () => {

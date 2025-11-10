@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLoaderData } from "react-router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaFireAlt } from "react-icons/fa";
 import { MdDoneAll } from "react-icons/md";
 import Swal from "sweetalert2";
 import axios from "axios";
+
 
 const HabitDetails = () => {
   const habit = useLoaderData();
@@ -24,7 +25,6 @@ const HabitDetails = () => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [updatedHabit, setUpdatedHabit] = useState(habit);
 
-  // ✅ Detect if completed today
   useEffect(() => {
     const today = new Date().toISOString().split("T")[0];
     if (completionHistory.some((h) => h.date === today)) {
@@ -32,7 +32,6 @@ const HabitDetails = () => {
     }
   }, [completionHistory]);
 
-  // ✅ Calculate progress (last 30 days)
   const calculateProgress = () => {
     const today = new Date();
     const last30Days = Array.from({ length: 30 }, (_, i) => {
@@ -48,11 +47,9 @@ const HabitDetails = () => {
 
   const progress = calculateProgress();
 
-  // ✅ Handle mark complete
   const handleMarkComplete = async () => {
     const today = new Date().toISOString().split("T")[0];
 
-    // Prevent duplicate entry
     if (completionHistory.some((h) => h.date === today)) {
       Swal.fire({
         icon: "info",
@@ -65,10 +62,11 @@ const HabitDetails = () => {
     }
 
     try {
-      const res = await axios.patch(`http://localhost:3000/habits/${_id}/complete`);
+      const res = await axios.patch(
+        `http://localhost:3000/habits/${_id}/complete`
+      );
 
       if (res.data.success) {
-        // ✅ Update local UI
         const newHistory = [...completionHistory, { date: today }];
         const updated = {
           ...updatedHabit,
@@ -97,7 +95,7 @@ const HabitDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-16 px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen bg-gradient-to-b from-green-50 to-white py-10 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -112,22 +110,22 @@ const HabitDetails = () => {
               "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
             }
             alt={title}
-            className="w-full h-[420px] object-cover"
+            className="w-full h-[300px] sm:h-[400px] object-cover"
             whileHover={{ scale: 1.03 }}
             transition={{ duration: 0.6 }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6 sm:p-8">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
               {title || "Untitled Habit"}
             </h1>
           </div>
         </div>
 
         {/* Content Section */}
-        <div className="p-10 space-y-6">
+        <div className="p-6 sm:p-10 space-y-6">
           {/* Category and Creator Info */}
-          <div className="flex flex-wrap items-center justify-between">
-            <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wide">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wide w-fit">
               {category || "General"}
             </span>
 
@@ -151,7 +149,7 @@ const HabitDetails = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-gray-700 leading-relaxed text-lg"
+            className="text-gray-700 leading-relaxed text-base sm:text-lg"
           >
             {description ||
               "No description available for this habit. Try adding one to inspire consistency!"}
@@ -160,7 +158,7 @@ const HabitDetails = () => {
           {/* Progress Section */}
           <div className="pt-4">
             <div className="flex justify-between mb-2">
-              <h2 className="text-lg font-semibold text-gray-700">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-700">
                 Progress (Last 30 Days)
               </h2>
               <span className="text-sm font-medium text-green-700">
@@ -174,7 +172,7 @@ const HabitDetails = () => {
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 1 }}
                 className="h-4 bg-gradient-to-r from-green-400 to-green-600 rounded-full"
-              ></motion.div>
+              />
             </div>
           </div>
 
@@ -184,7 +182,7 @@ const HabitDetails = () => {
               whileHover={{ scale: 1.05 }}
               className="flex items-center bg-orange-100 px-4 py-2 rounded-full shadow-sm"
             >
-              <FaFireAlt className="text-orange-500 text-xl mr-2" />
+              <FaFireAlt className="text-orange-500 text-xl mr-2 animate-pulse" />
               <span className="font-semibold text-gray-700">
                 {updatedHabit.streak} Day Streak 🔥
               </span>
@@ -198,7 +196,7 @@ const HabitDetails = () => {
               whileTap={{ scale: 0.95 }}
               disabled={isCompleted}
               onClick={handleMarkComplete}
-              className={`flex items-center gap-2 px-8 py-3 rounded-xl font-medium text-white shadow-md transition-all ${
+              className={`flex items-center gap-2 px-6 sm:px-8 py-3 rounded-xl font-medium text-white shadow-md transition-all ${
                 isCompleted
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-green-600 hover:bg-green-700"
@@ -210,7 +208,24 @@ const HabitDetails = () => {
           </div>
         </div>
       </motion.div>
-    </div>
+      {/* Review Section */}
+        
+      {/* Home Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+        className="text-center mt-12"
+      >
+        <a
+          href="/"
+          className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full shadow-md transition-all"
+        >
+          ⬅️ Back to Home
+        </a>
+      </motion.div>
+    </section>
+    
   );
 };
 
