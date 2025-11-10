@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import HabitBanner from "../../Components/HabitShow/HabitBanner";
+
 
 const AddHabits = () => {
   const { user } = useContext(AuthContext);
@@ -190,6 +192,7 @@ const AddHabits = () => {
           Add Habit
         </motion.button>
       </form>
+      <HabitBanner></HabitBanner>
     </motion.div>
   );
 };

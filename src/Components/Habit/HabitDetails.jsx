@@ -1,30 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLoaderData } from "react-router";
 import { motion } from "framer-motion";
 import { FaFireAlt } from "react-icons/fa";
 import { MdDoneAll } from "react-icons/md";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const HabitDetails = () => {
   const habit = useLoaderData();
 
-  // Destructure habit data
   const {
+    _id,
     title,
     description,
     image,
     category,
     createdBy,
     createdAt,
-    progress = 65, // example %
-    streak = 8, // example streak days
+    completionHistory = [],
+    streak = 0,
   } = habit || {};
 
-  // Local state for marking complete
   const [isCompleted, setIsCompleted] = useState(false);
+  const [updatedHabit, setUpdatedHabit] = useState(habit);
 
-  const handleMarkComplete = () => {
-    setIsCompleted(true);
-    // Later you can add PUT/PATCH call to update progress in DB
+  // ✅ Detect if completed today
+  useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    if (completionHistory.some((h) => h.date === today)) {
+      setIsCompleted(true);
+    }
+  }, [completionHistory]);
+
+  // ✅ Calculate progress (last 30 days)
+  const calculateProgress = () => {
+    const today = new Date();
+    const last30Days = Array.from({ length: 30 }, (_, i) => {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      return d.toISOString().split("T")[0];
+    });
+    const completedDays = completionHistory.filter((h) =>
+      last30Days.includes(h.date)
+    ).length;
+    return Math.round((completedDays / 30) * 100);
+  };
+
+  const progress = calculateProgress();
+
+  // ✅ Handle mark complete
+  const handleMarkComplete = async () => {
+    const today = new Date().toISOString().split("T")[0];
+
+    // Prevent duplicate entry
+    if (completionHistory.some((h) => h.date === today)) {
+      Swal.fire({
+        icon: "info",
+        title: "Already completed today!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      setIsCompleted(true);
+      return;
+    }
+
+    try {
+      const res = await axios.patch(`http://localhost:3000/habits/${_id}/complete`);
+
+      if (res.data.success) {
+        // ✅ Update local UI
+        const newHistory = [...completionHistory, { date: today }];
+        const updated = {
+          ...updatedHabit,
+          completionHistory: newHistory,
+          streak: res.data.streak || streak + 1,
+        };
+        setUpdatedHabit(updated);
+        setIsCompleted(true);
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: res.data.message || "Marked as complete!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Failed to update habit progress.",
+      });
+    }
   };
 
   return (
@@ -111,28 +180,19 @@ const HabitDetails = () => {
 
           {/* Streak Badge */}
           <div className="flex items-center gap-3 mt-6">
-            <div className="flex items-center bg-orange-100 px-4 py-2 rounded-full shadow-sm">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center bg-orange-100 px-4 py-2 rounded-full shadow-sm"
+            >
               <FaFireAlt className="text-orange-500 text-xl mr-2" />
               <span className="font-semibold text-gray-700">
-                {streak} Day Streak 🔥
+                {updatedHabit.streak} Day Streak 🔥
               </span>
-            </div>
+            </motion.div>
           </div>
 
           {/* Action Button */}
-          {/* Action Buttons */}
-          <div className="pt-8 border-t border-gray-200 flex justify-end gap-4">
-            {/* Update Button (Left side, red) */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-             
-              className="flex items-center gap-2 px-8 py-3 rounded-xl font-medium text-white shadow-md bg-red-600 hover:bg-red-700 transition-all"
-            >
-               Update
-            </motion.button>
-
-            {/* Mark Complete Button (Right side) */}
+          <div className="pt-8 border-t border-gray-200 flex justify-end">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

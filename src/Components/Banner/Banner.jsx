@@ -11,7 +11,6 @@ const habitImages = [
 const Banner = () => {
   const [current, setCurrent] = useState(0);
 
-  // Auto-slide every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       handleNext();
@@ -28,116 +27,15 @@ const Banner = () => {
   };
 
   return (
-    <div
-      style={{
-        fontFamily: "sans-serif",
-        background: "#f0fdf4",
-        minHeight: "600px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "20px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          maxWidth: "1200px",
-          width: "100%",
-          alignItems: "center",
-          gap: "40px",
-        }}
-      >
-        {/* Left Image Slider */}
-        <div
-          style={{
-            flex: 5,
-            position: "relative",
-            height: "500px",
-            borderRadius: "16px",
-            overflow: "hidden",
-          }}
-        >
-          <AnimatePresence initial={false}>
-            <motion.img
-              key={current}
-              src={habitImages[current]}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.8 }}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: "16px",
-                position: "absolute",
-                top: 0,
-                left: 0,
-              }}
-            />
-          </AnimatePresence>
-
-          {/* Manual Arrows */}
-          <button
-            onClick={handlePrev}
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "10px",
-              transform: "translateY(-50%)",
-              background: "rgba(0,0,0,0.5)",
-              color: "#fff",
-              border: "none",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              cursor: "pointer",
-            }}
-          >
-            &#10094;
-          </button>
-
-          <button
-            onClick={handleNext}
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: "10px",
-              transform: "translateY(-50%)",
-              background: "rgba(0,0,0,0.5)",
-              color: "#fff",
-              border: "none",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              cursor: "pointer",
-            }}
-          >
-            &#10095;
-          </button>
-        </div>
-
-        {/* Right Text Section */}
-        <div
-          style={{
-            flex: 7,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
+    <section className="bg-[#f0fdf4] py-10 px-4 md:px-10">
+      <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-10">
+        
+        <div className="flex-1 text-center md:text-left">
           <motion.h1
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            style={{
-              fontSize: "3rem",
-              fontWeight: "bold",
-              marginBottom: "20px",
-              lineHeight: 1.2,
-              color: "#065f46",
-            }}
+            className="text-3xl md:text-5xl font-bold text-[#065f46] mb-4 leading-tight"
           >
             Build Healthy Habits <br /> Every Day
           </motion.h1>
@@ -146,11 +44,7 @@ const Banner = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            style={{
-              fontSize: "1.2rem",
-              marginBottom: "30px",
-              color: "#065f46",
-            }}
+            className="text-base md:text-lg text-[#065f46] mb-6"
           >
             Track your daily routines, stay consistent, and achieve your goals
             with our habit tracker. Manage your tasks, reminders, and progress
@@ -160,49 +54,60 @@ const Banner = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            style={{
-              padding: "15px 30px",
-              fontSize: "1rem",
-              fontWeight: "bold",
-              borderRadius: "12px",
-              border: "none",
-              background: "#10b981",
-              color: "#fff",
-              cursor: "pointer",
-            }}
+            className="bg-[#10b981] text-white px-6 py-3 rounded-lg font-semibold text-sm md:text-base transition"
           >
             Get Started for Free
           </motion.button>
 
-          <div
-            style={{
-              display: "flex",
-              marginTop: "30px",
-              gap: "20px",
-              alignItems: "center",
-            }}
-          >
-            <p style={{ fontWeight: "bold", color: "#065f46" }}>
-              Available on:
-            </p>
+          <div className="flex items-center gap-4 mt-6 justify-center md:justify-start">
+            <p className="font-bold text-[#065f46]">Available on:</p>
             <a href="#">
               <img
                 src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/4/app-store-button.png"
                 alt="App Store"
-                style={{ height: "50px" }}
+                className="h-10"
               />
             </a>
             <a href="#">
               <img
                 src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/4/play-store-button.png"
                 alt="Play Store"
-                style={{ height: "50px" }}
+                className="h-10"
               />
             </a>
           </div>
         </div>
+
+
+        <div className="flex-1 relative h-[300px] md:h-[500px] w-full rounded-xl overflow-hidden">
+          <AnimatePresence initial={false}>
+            <motion.img
+              key={current}
+              src={habitImages[current]}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.8 }}
+              className="absolute top-0 left-0 w-full h-full object-cover rounded-xl"
+            />
+          </AnimatePresence>
+
+ 
+          <button
+            onClick={handlePrev}
+            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/50 text-white rounded-full w-10 h-10 flex items-center justify-center"
+          >
+            &#10094;
+          </button>
+          <button
+            onClick={handleNext}
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/50 text-white rounded-full w-10 h-10 flex items-center justify-center"
+          >
+            &#10095;
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
