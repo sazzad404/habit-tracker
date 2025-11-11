@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
 
-  const { loginUser,googleAuthProvider  } = use(AuthContext);
-
+  const { loginUser, googleAuthProvider } = use(AuthContext);
+  const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -21,27 +22,51 @@ const Login = () => {
 
     loginUser(email, password)
       .then((result) => {
-        const user = result.user;
-        console.log(user);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Successful Log in",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
+        setPasswordError(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.message || "Something went wrong, please try again!",
+        });
       });
   };
 
   // google auth
 
-  const handleGoogleAuth = ()=>{
-  googleAuthProvider()
-  .then(result=>{
-    console.log(result);
-    navigate("/");
-  })
-  .catch(err=>{
-    console.log(err);
-  })
-  }
+  const handleGoogleAuth = () => {
+    googleAuthProvider()
+      .then((result) => {
+        console.log(result);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Successful Log in",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.message || "Something went wrong, please try again!",
+        });
+      });
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900 p-6">
       <motion.div
@@ -69,6 +94,11 @@ const Login = () => {
               required
               className="w-full p-3 rounded-lg bg-white/5 border border-white/10 focus:border-sky-400 focus:ring-2 focus:ring-sky-400 outline-none transition-all pr-10"
             />
+            {passwordError && (
+              <p className="text-red-400 text-sm mt-1">
+                {passwordError.message}
+              </p>
+            )}
             <span
               className="absolute right-3 top-3 cursor-pointer text-gray-400 hover:text-sky-400 transition-all"
               onClick={() => setShowPass(!showPass)}
@@ -83,7 +113,10 @@ const Login = () => {
             Login
           </button>
         </form>
-        <button onClick={handleGoogleAuth} className="btn bg-white  text-black w-full mt-2">
+        <button
+          onClick={handleGoogleAuth}
+          className="btn bg-white  text-black w-full mt-2"
+        >
           <svg
             aria-label="Google logo"
             width="16"

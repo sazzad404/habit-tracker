@@ -5,18 +5,20 @@ import { useLoaderData } from "react-router";
 import Habit from "../Components/Habit/Habit";
 import Features from "../Components/Features/Features";
 import HabitPlans from "../Components/Plans/Plans";
+import WhyBuildHabits from "../Components/WhyBuildHabits/WhyBuildHabits";
+import SponsoredBy from "../Components/Sponsor/Sponsor";
 
 const Home = () => {
   const data = useLoaderData();
   console.log(data);
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Banner />
       <HeroSection />
-      <Features></Features>
+  
+      <WhyBuildHabits></WhyBuildHabits>
       {/* Content Section */}
-      <div className="container mx-auto ">
-        {/* Left side - Featured Posts */}
+      <div className="container mt-18 mx-auto bg-gray-50">
         <div className="col-span-7">
           <div className="flex items-center gap-4 mb-6">
             <div className="flex-1 h-px bg-primary"></div>
@@ -39,6 +41,7 @@ const Home = () => {
       </div>
 
       <HabitPlans></HabitPlans>
+      <SponsoredBy></SponsoredBy>
     </div>
   );
 };

@@ -90,7 +90,7 @@ const Navbar = () => {
           <Link to={"/"}>
             <a
               href="#"
-              className="flex items-center rounded outline-none focus:ring-1 focus:ring-indigo-600 focus:ring-offset-2"
+              className="flex items-center rounded outline-none "
             >
               <img
                 className="w-auto h-8"

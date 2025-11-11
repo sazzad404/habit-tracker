@@ -48,7 +48,7 @@ const AddHabits = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Successful Sign Up",
+          title: "Add Habit Successful",
           showConfirmButton: false,
           timer: 1500,
         });

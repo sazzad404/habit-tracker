@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { AuthContext } from "../../Provider/AuthProvider";
 import HabitTable from "../../Components/Habit/HabitTable";
 import HabitAnalytics from "../../Components/Analysis/HabitAnlytics";
+import HabitGuideSection from "../../Components/Habit Guide/habitGuideData";
 
 
 const MyHabits = () => {
@@ -62,6 +63,8 @@ const MyHabits = () => {
         </div>
       </div>
               {habits.length > 0 && <HabitAnalytics habits={habits} />}
+              <HabitGuideSection></HabitGuideSection>
+              
     </section>
   );
 };

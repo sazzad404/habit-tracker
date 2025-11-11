@@ -54,7 +54,7 @@ const HabitPlans = () => {
   ];
 
   return (
-    <section className="py-12 bg-white sm:py-16 lg:py-24">
+    <section className="py-12 bg-gray-50 sm:py-16 lg:py-24">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto">
           <h2 className="text-4xl font-bold text-black lg:text-5xl sm:text-5xl font-pj">

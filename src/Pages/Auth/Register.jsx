@@ -46,10 +46,9 @@ const Register = () => {
     // creaate user
     createUser(email, password)
       .then(() => {
-     
         updateUser({ displayName: name, photoURL })
           .then(() => {
-            setUser({ ...user,displayName: name, email, photoURL }); // update Navbar
+            setUser({ ...user, displayName: name, email, photoURL }); // update Navbar
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -64,6 +63,11 @@ const Register = () => {
       })
       .catch((err) => {
         console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.message || "Something went wrong, please try again!",
+        });
       });
   };
 

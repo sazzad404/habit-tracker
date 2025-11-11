@@ -12,7 +12,7 @@ const Habit = ({ habit }) => {
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 w-full max-w-sm mx-auto"
+      className=" rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 w-full max-w-sm mx-auto"
     >
       {/* Image Section */}
       <figure className="h-52 sm:h-60 overflow-hidden">
