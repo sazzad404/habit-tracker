@@ -174,7 +174,7 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
         title={completedToday ? "Already Completed Today" : "Mark as Complete"}
       >
         <FaCheckCircle className={completedToday ? "text-emerald-500" : ""} />
-        {completedToday ? "Done ✅" : "Complete"}
+        {completedToday ? "Completed" : "Complete"}
       </button>
     </>
   );
