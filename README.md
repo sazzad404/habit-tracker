@@ -1,16 +1,54 @@
-# React + Vite
+## Habit Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Habit Tracker is a modern web application designed to help users build and maintain positive daily habits.
+With this app, users can easily add new habits, mark completed ones, and track their daily progress visually.
+The interface is fully responsive and comes with a built-in dark/light mode toggle for a comfortable viewing experience, even at night.
+Its clean design, smooth animations, and data-driven dashboard make staying consistent both motivating and enjoyable.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Website:
+https://habit-tracker-59d38.web.app/home
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+## GitHub Repositories:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Client: https://github.com/sazzad404/habit-tracker
+Server: https://github.com/sazzad404/habit-tracker-server
+
+
+## Key Features
+
+* User authentication system with email/password and Google Sign-In
+
+* Add, edit, update, and delete personal habits easily
+
+* Automatic streak counter to keep track of consistency
+
+* Interactive analytics dashboard to visualize progress
+
+* Smooth dark/light mode toggle for personalized theme preference
+
+* Animated user interface built with Framer Motion
+
+* Instant notifications using SweetAlert2
+
+* Fully responsive layout for desktop, tablet, and mobile devices
+
+* Real-time data synchronization from MongoDB through the Express backend
+
+
+## Tech Stack
+
+Frontend:
+React.js, Tailwind CSS, DaisyUI, Framer Motion, SweetAlert2, Axios, Recharts
+
+Backend:
+Node.js, Express.js, MongoDB, CORS
+
+
+## Project Overview
+
+This project was built as a personal productivity tool to make habit tracking more intuitive and visually engaging.
+The goal was to design a minimal, fast, and user-friendly interface where users can monitor progress without distractions.
+It’s a practical combination of clean design and functional utility—ideal for anyone who wants to build better daily routines.
