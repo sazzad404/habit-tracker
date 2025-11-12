@@ -5,14 +5,15 @@ import HabitTable from "../../Components/Habit/HabitTable";
 import HabitAnalytics from "../../Components/Analysis/HabitAnlytics";
 import HabitGuideSection from "../../Components/Habit Guide/habitGuideData";
 
-
 const MyHabits = () => {
   const { user } = useContext(AuthContext);
   const [habits, setHabits] = useState([]);
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/habits?email=${user.email}`)
+      fetch(
+        `https://habit-tracker-server-three.vercel.app/habits?email=${user.email}`
+      )
         .then((res) => res.json())
         .then((data) => setHabits(data));
     }
@@ -62,9 +63,8 @@ const MyHabits = () => {
           )}
         </div>
       </div>
-              {habits.length > 0 && <HabitAnalytics habits={habits} />}
-              <HabitGuideSection></HabitGuideSection>
-              
+      {habits.length > 0 && <HabitAnalytics habits={habits} />}
+      <HabitGuideSection></HabitGuideSection>
     </section>
   );
 };

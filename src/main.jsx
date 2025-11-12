@@ -27,7 +27,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        loader: () => fetch("http://localhost:3000/habits/limited"),
+        loader: () =>
+          fetch("https://habit-tracker-server-three.vercel.app/habits/limited"),
         Component: Home,
       },
       {
@@ -41,7 +42,9 @@ const router = createBrowserRouter([
       {
         path: "/my-habits",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/habits/${params.id}`),
+          fetch(
+            `https://habit-tracker-server-three.vercel.app/habits/${params.id}`
+          ),
 
         element: (
           <PrivateRoute>
@@ -51,13 +54,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/brows-public-habits",
-        loader: () => fetch("http://localhost:3000/habits"),
+        loader: () =>
+          fetch("https://habit-tracker-server-three.vercel.app/habits"),
         element: <BrowsHabits></BrowsHabits>,
       },
       {
         path: "/habit-details/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/habits/${params.id}`),
+          fetch(
+            `https://habit-tracker-server-three.vercel.app/habits/${params.id}`
+          ),
 
         element: (
           <PrivateRoute>

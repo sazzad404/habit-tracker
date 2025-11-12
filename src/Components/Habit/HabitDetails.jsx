@@ -6,7 +6,6 @@ import { MdDoneAll } from "react-icons/md";
 import Swal from "sweetalert2";
 import axios from "axios";
 
-
 const HabitDetails = () => {
   const habit = useLoaderData();
 
@@ -63,7 +62,7 @@ const HabitDetails = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:3000/habits/${_id}/complete`
+        `https://habit-tracker-server-three.vercel.app/habits/${_id}/complete`
       );
 
       if (res.data.success) {
@@ -209,7 +208,7 @@ const HabitDetails = () => {
         </div>
       </motion.div>
       {/* Review Section */}
-        
+
       {/* Home Button */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -225,7 +224,6 @@ const HabitDetails = () => {
         </a>
       </motion.div>
     </section>
-    
   );
 };
 

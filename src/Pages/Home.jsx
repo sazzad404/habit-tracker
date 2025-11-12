@@ -10,7 +10,7 @@ import SponsoredBy from "../Components/Sponsor/Sponsor";
 
 const Home = () => {
   const data = useLoaderData();
-  console.log(data);
+  // console.log(data);
   return (
     <div className="min-h-screen bg-gray-50">
       <Banner />

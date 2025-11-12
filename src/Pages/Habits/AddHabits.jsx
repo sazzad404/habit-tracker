@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import HabitBanner from "../../Components/HabitShow/HabitBanner";
 
-
 const AddHabits = () => {
   const { user } = useContext(AuthContext);
 
@@ -34,10 +33,10 @@ const AddHabits = () => {
       createdBy: user?.email,
     };
 
-    console.log("Submitted Habit Data:", submittedData);
+    // console.log("Submitted Habit Data:", submittedData);
 
     // Example fetch POST request
-    fetch("http://localhost:3000/habits", {
+    fetch("https://habit-tracker-server-three.vercel.app/habits", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(submittedData),

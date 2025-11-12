@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaEdit, FaTrashAlt, FaCheckCircle, FaFire, FaCalendarAlt, FaTimes } from "react-icons/fa";
+import {
+  FaEdit,
+  FaTrashAlt,
+  FaCheckCircle,
+  FaFire,
+  FaCalendarAlt,
+  FaTimes,
+} from "react-icons/fa";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -21,7 +28,8 @@ const formatDate = (dateString) => {
 const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
   if (!singleHabit) return null;
 
-  const { _id, title, category, image, createdAt, streak, completionHistory } = singleHabit;
+  const { _id, title, category, image, createdAt, streak, completionHistory } =
+    singleHabit;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updatedData, setUpdatedData] = useState({
@@ -40,10 +48,16 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:3000/habits/${_id}`, updatedData);
+      const res = await axios.put(
+        `https://habit-tracker-server-three.vercel.app/habits/${_id}`,
+        updatedData
+      );
 
       if (res.status === 200 || res.status === 201) {
-        const updatedHabit = res.data.data || { ...singleHabit, ...updatedData };
+        const updatedHabit = res.data.data || {
+          ...singleHabit,
+          ...updatedData,
+        };
         const newList = allHabits.map((habit) =>
           habit._id === _id ? updatedHabit : habit
         );
@@ -81,7 +95,7 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/habits/${id}`)
+          .delete(`https://habit-tracker-server-three.vercel.app/habits/${id}`)
           .then(() => {
             const newList = allHabits.filter((habit) => habit._id !== id);
             setHabit(newList);
@@ -106,7 +120,9 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
   // Mark habit as complete
   const handleComplete = async (id) => {
     try {
-      const res = await axios.patch(`http://localhost:3000/habits/${id}/complete`);
+      const res = await axios.patch(
+        `https://habit-tracker-server-three.vercel.app/habits/${id}/complete`
+      );
       if (res.data.success) {
         Swal.fire({
           position: "top-end",
@@ -123,7 +139,10 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
             ? {
                 ...habit,
                 streak: res.data.streak ?? habit.streak + 1,
-                completionHistory: [...(habit.completionHistory || []), { date: today }],
+                completionHistory: [
+                  ...(habit.completionHistory || []),
+                  { date: today },
+                ],
               }
             : habit
         );
@@ -196,7 +215,9 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
               <th className="py-3 px-4 font-bold w-32">Category</th>
               <th className="py-3 px-4 font-bold w-36">Current Streak</th>
               <th className="py-3 px-4 font-bold w-36">Created Date</th>
-              <th className="py-3 px-4 font-bold text-center w-[380px]">Actions</th>
+              <th className="py-3 px-4 font-bold text-center w-[380px]">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -207,18 +228,28 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
                   alt={title}
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "https://via.placeholder.com/56x56?text=Habit";
+                    e.target.src =
+                      "https://via.placeholder.com/56x56?text=Habit";
                   }}
                   className="w-14 h-14 object-cover rounded-lg shadow-inner"
                 />
               </td>
-              <td className="py-3 px-4 font-medium text-gray-800 text-base">{title}</td>
-              <td className="py-3 px-4 text-gray-600 text-sm capitalize">{category}</td>
-              <td className="py-3 px-4 text-gray-700 font-bold text-base">
-                <FaFire className="inline text-orange-500 mr-1" /> {streak || 0} days
+              <td className="py-3 px-4 font-medium text-gray-800 text-base">
+                {title}
               </td>
-              <td className="py-3 px-4 text-gray-500 text-sm">{formatDate(createdAt)}</td>
-              <td className="py-3 px-4 flex gap-2 justify-center items-center">{ActionButtons}</td>
+              <td className="py-3 px-4 text-gray-600 text-sm capitalize">
+                {category}
+              </td>
+              <td className="py-3 px-4 text-gray-700 font-bold text-base">
+                <FaFire className="inline text-orange-500 mr-1" /> {streak || 0}{" "}
+                days
+              </td>
+              <td className="py-3 px-4 text-gray-500 text-sm">
+                {formatDate(createdAt)}
+              </td>
+              <td className="py-3 px-4 flex gap-2 justify-center items-center">
+                {ActionButtons}
+              </td>
             </tr>
           </tbody>
         </motion.table>
@@ -254,11 +285,14 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
               <span className="font-bold">{streak || 0}</span> day streak
             </p>
             <p className="text-gray-500 flex items-center gap-1">
-              <FaCalendarAlt className="text-blue-500" /> Since: {formatDate(createdAt)}
+              <FaCalendarAlt className="text-blue-500" /> Since:{" "}
+              {formatDate(createdAt)}
             </p>
           </div>
 
-          <div className="flex gap-2 flex-wrap sm:flex-nowrap">{ActionButtons}</div>
+          <div className="flex gap-2 flex-wrap sm:flex-nowrap">
+            {ActionButtons}
+          </div>
         </motion.div>
       </div>
 
@@ -296,21 +330,27 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
                   type="text"
                   required
                   value={updatedData.title}
-                  onChange={(e) => setUpdatedData({ ...updatedData, title: e.target.value })}
+                  onChange={(e) =>
+                    setUpdatedData({ ...updatedData, title: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition"
                   placeholder="Habit Title"
                 />
                 <input
                   type="text"
                   value={updatedData.category}
-                  onChange={(e) => setUpdatedData({ ...updatedData, category: e.target.value })}
+                  onChange={(e) =>
+                    setUpdatedData({ ...updatedData, category: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition"
                   placeholder="Category"
                 />
                 <input
                   type="text"
                   value={updatedData.image}
-                  onChange={(e) => setUpdatedData({ ...updatedData, image: e.target.value })}
+                  onChange={(e) =>
+                    setUpdatedData({ ...updatedData, image: e.target.value })
+                  }
                   className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition"
                   placeholder="Image URL"
                 />
@@ -319,7 +359,10 @@ const HabitTable = ({ singleHabit, allHabits, setHabit }) => {
                   min="0"
                   value={updatedData.streak}
                   onChange={(e) =>
-                    setUpdatedData({ ...updatedData, streak: Number(e.target.value) || 0 })
+                    setUpdatedData({
+                      ...updatedData,
+                      streak: Number(e.target.value) || 0,
+                    })
                   }
                   className="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400 outline-none transition"
                   placeholder="Current Streak"
